@@ -1,4 +1,5 @@
 import {fetchBreeds, fetchCatByBreed} from "./js/cat-api";
+import SlimSelect from 'slim-select'
 
 
 const refs = {
@@ -14,9 +15,11 @@ fetchBreeds().then((data) => {
     refs.selectCat.classList.remove('select-hidden');
     refs.loader.classList.add('loader-hidden');
     renderSelect(data, refs.selectCat);
+    new SlimSelect({
+        select: '.breed-select'
+      })
     
-});
-
+}).catch(errorOn);
 
 function renderSelect(arr, container){
    const markupList = arr.map(
@@ -35,9 +38,8 @@ refs.selectCat.addEventListener("change", (e) => {
         rendeerCard(breeds[0].name , breeds[0].description, breeds[0].temperament, url, refs.catCart);
         refs.loader.classList.add('loader-hidden');
         refs.catCart.classList.remove('cat-hidden'); 
-    }
-        
-    );
+    }   
+    ).catch(errorOn);
   });
 
   function rendeerCard(name, description, temperament, url, container){
@@ -53,6 +55,12 @@ refs.selectCat.addEventListener("change", (e) => {
             `
         ;
     container.innerHTML = markupCart;
+    
+  }
+
+  function errorOn(){
+    refs.loader.classList.add('loader-hidden');
+    refs.error.classList.remove('error-hidden');
   }
 
 

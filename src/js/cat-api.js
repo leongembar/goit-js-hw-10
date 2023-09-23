@@ -6,9 +6,6 @@ export function fetchBreeds(){
     return axios.get('https://api.thecatapi.com/v1/breeds')
   .then(function (response) {
     return response.data;
-  })
-  .catch(function (error) {
-    console.log(error);
   });
 }
 
@@ -17,8 +14,5 @@ export function fetchCatByBreed(breedId){
   .then(function (response) {
     // console.log(response.data[0])
     return response.data[0];
-  })
-  .catch(function (error) {
-    console.log(error);
   });
 }
